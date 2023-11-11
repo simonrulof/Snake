@@ -43,7 +43,21 @@ class Snake:
             self.positionFruit = (random.randint(0, self.nbCases-1), random.randint(0, self.nbCases-1))
 
 
-    def actualiseCanvas(self):
+    def actualiseCanvas(self, positionLeft : tuple[int, int]):
+        size = int(self.canvas['width'])
+            
+        i, j = positionLeft
+        self.canvas.create_rectangle(i*size/self.nbCases, j*size/self.nbCases, (i+1)*size/self.nbCases, (j+1)*size/self.nbCases, fill="white")
+
+        for (i,j) in self.snake:
+            self.canvas.create_rectangle(i*size/self.nbCases, j*size/self.nbCases, (i+1)*size/self.nbCases, (j+1)*size/self.nbCases, fill="green")
+        
+        i, j = self.positionFruit
+        self.canvas.create_rectangle(i*size/self.nbCases, j*size/self.nbCases, (i+1)*size/self.nbCases, (j+1)*size/self.nbCases, fill="red")
+
+
+
+    """def actualiseCanvas(self):
         size = int(self.canvas['width'])
         for i in range(self.nbCases):
             for j in range(self.nbCases):
@@ -55,13 +69,13 @@ class Snake:
 
                 else:
                     self.canvas.create_rectangle(i*size/self.nbCases, j*size/self.nbCases, (i+1)*size/self.nbCases, (j+1)*size/self.nbCases, fill="white")
-
+    """
 
     def createSnake(self):
         self.snake = [(self.nbCases//2, self.nbCases//2), ((self.nbCases//2) - 1, self.nbCases//2)]
         self.generateFruit()
         
-        self.actualiseCanvas()
+        self.actualiseCanvas((0, 0))
 
 
     def actualizeSnake(self):
@@ -129,7 +143,7 @@ class Snake:
 
             GlobalVar.gameOver = self.checkDeath()
 
-            self.actualiseCanvas()
+            self.actualiseCanvas(positionLeft)
 
             self.root.update()
             endTime = time.time()
