@@ -24,6 +24,9 @@ class Snake:
 
     def run(self):
         self.mainLoop()
+
+        self.canvas.create_text(self.size/2, self.size/4, text="Game Over, score : " + str(len(self.snake)) + ", press esc to leave.", font=('Helvetica','20','bold'))
+        self.root.update()
         
         while not GlobalVar.leave:
             self.root.update()
