@@ -13,6 +13,7 @@ class Snake:
         self.size = size
         self.nbCases = nbCases
         GlobalVar.gameOver = False
+        GlobalVar.leave = False
         GlobalVar.direction = "right"
         GlobalVar.baseDirection = "right"
 
@@ -23,6 +24,13 @@ class Snake:
 
     def run(self):
         self.mainLoop()
+        
+        while not GlobalVar.leave:
+            self.root.update()
+            time.sleep(0.1)
+
+
+        self.root.destroy()
     
 
     def frameSetup(self):
@@ -129,7 +137,7 @@ class Snake:
         return self.snake[0][0] < 0 or self.snake[0][0] >= self.nbCases or self.snake[0][1] < 0 or self.snake[0][1] >= self.nbCases or self.snake[0] in self.snake[1:]
 
     def mainLoop(self):
-        while not GlobalVar.gameOver:
+        while not GlobalVar.gameOver and not GlobalVar.leave:
             startTime = time.time()
 
             

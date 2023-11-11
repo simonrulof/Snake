@@ -17,3 +17,6 @@ class Inputs(threading.Thread):
                     GlobalVar.direction = "down"
                 if event.key == keyboard.Key.up and GlobalVar.baseDirection != "up":
                     GlobalVar.direction = "up"
+                if event.key == keyboard.Key.esc:
+                    GlobalVar.leave = True
+                    break
